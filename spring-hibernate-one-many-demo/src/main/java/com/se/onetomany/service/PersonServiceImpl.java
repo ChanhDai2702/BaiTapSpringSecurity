@@ -58,5 +58,10 @@ public class PersonServiceImpl implements PersonService{
     {
         personDAO.deletePerson(thePersonId);
     }
+
+    @Override
+    public List<Person> getPersons(int theSortField) {
+       return personDAO.getPersons(theSortField);
+    }
     
 }

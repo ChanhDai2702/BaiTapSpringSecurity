@@ -21,4 +21,6 @@ public interface PersonDAO {
     public Person getPerson(int theId);
     public void deletePerson(int theId);
     
+    public List<Person> getPersons(int theSortField);
+    
 }

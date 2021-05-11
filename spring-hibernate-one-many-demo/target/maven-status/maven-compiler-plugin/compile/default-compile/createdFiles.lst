@@ -10,6 +10,7 @@ com\se\onetomany\service\PersonService.class
 com\se\onetomany\entity\Person.class
 com\se\onetomany\service\PersonServiceImpl.class
 com\se\onetomany\dao\CreditCardDAO.class
+com\se\onetomany\util\SortUtils.class
 com\se\onetomany\dto\PersonDTO.class
 com\se\onetomany\controller\LoginController.class
 com\se\onetomany\dao\PersonDAO.class

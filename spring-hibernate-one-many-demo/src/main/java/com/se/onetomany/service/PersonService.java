@@ -21,4 +21,6 @@ public interface PersonService {
     public void savePerson(Person thePerson);
     public Person getPerson(int personId);
     public void deletePerson(int personId);
+    
+    public List<Person> getPersons(int theSortField);
 }

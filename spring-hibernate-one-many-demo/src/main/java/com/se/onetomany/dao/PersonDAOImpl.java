@@ -7,6 +7,7 @@ package com.se.onetomany.dao;
 
 import com.se.onetomany.entity.CreditCard;
 import com.se.onetomany.entity.Person;
+import com.se.onetomany.util.SortUtils;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author TriPham
  */
+
 @Repository
 public class PersonDAOImpl implements PersonDAO {
      @Autowired
@@ -84,15 +86,46 @@ public class PersonDAOImpl implements PersonDAO {
             Person tempPerson = currentSession.get(Person.class, thePersonId);
             currentSession.delete(tempPerson);
 
-// delete object with primary key
-            
-//            Query theQuery = 
-//                            currentSession.createQuery("delete from Person where id=:personId");
-//            theQuery.setParameter("personId", thePersonId);
-//            theQuery.executeUpdate();	
 
         }
   
   
 //    
+    @Transactional
+    @Override
+    public List<Person> getPersons(int theSortField) {
+       // get the current hibernate session
+			 Session currentSession = sessionFactory.getCurrentSession();	
+		// determine sort field
+		String theFieldName = null;
+		
+		switch (theSortField) {
+                        case SortUtils.ID: 
+				theFieldName = "id";
+				break;
+			case SortUtils.FIRST_NAME: 
+				theFieldName = "firstName";
+				break;
+			case SortUtils.LAST_NAME:
+				theFieldName = "lastName";
+				break;
+			case SortUtils.Money:
+				theFieldName = "money";
+				break;
+			default:
+				// if nothing matches the default to sort by lastName
+				theFieldName = "id";
+		}
+		
+		// create a query  
+		String queryString = "from Person order by " + theFieldName;
+		Query<Person> theQuery = 
+				currentSession.createQuery(queryString, Person.class);
+		
+		// execute query and get result list
+		List<Person> persons = theQuery.getResultList();
+				
+		// return the results		
+		return persons;
+    }
 }
